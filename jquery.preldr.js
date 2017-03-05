@@ -5,9 +5,10 @@
  * jquery.preloader.js, utf-8, 2013-04-17
  */
 
-jQuery( function ( $ ) {
-  "use strict";
+if ( undefined === jQuery ) { console.error( 'jQuery is required. #preldr' ); return; }
 
+( function ( $ ) {
+	"use strict";
 	$.fn.preldr = function ( callback ) {
 		var urls = [],
 			$this = $( this );
@@ -59,5 +60,4 @@ jQuery( function ( $ ) {
 			loaded();
 		}
 	};
-
-} );
+} () );
