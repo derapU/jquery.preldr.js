@@ -60,4 +60,4 @@ if ( undefined === jQuery ) { console.error( 'jQuery is required. #preldr' ); re
 			loaded();
 		}
 	};
-} () );
+} ( jQuery ) );
