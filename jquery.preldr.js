@@ -24,39 +24,35 @@ if ( undefined === jQuery ) { console.error( 'jQuery is required. #preldr' ); re
 		} );
 
 		$.preldr( urls, function () {
-			if ( typeof callback === 'function' ) {
-				callback( $this );
-			}
+			( callback || function () {} ).apply( undefined, [$this] );
 		} );
 	};
 
 	$.preldr = function ( urls, callback ) {
-		var $urls = $( urls ),
-			loading = urls.length,
+		var loading = urls.length,
 			loaded;
 
 		loaded = function () {
-			if ( typeof callback === 'function' ) {
-				callback();
-			}
+			( callback || function () {} ).apply( undefined, [] );
 		};
 
-		$urls.each( function () {
+		$.each( urls, function () {
 			var url = this;
 			$( new Image() )
 			.one( 'load error', function () {
 				loading--;
 				if ( loading === 0 ) {
-					loaded();
+					loaded( this );
 				}
 			} )
 			.attr( 'src', url )
 			.each( function () {
-				if ( this.complete ) $( this ).trigger( 'load' );
+				console.log( [this] );
+				if ( true === this.complete ) { $( this ).trigger( 'load' ); }
 			} );
 		} );
 
-		if ( $urls.length === 0 ) {
+		if ( urls.length === 0 ) {
 			loaded();
 		}
 	};
