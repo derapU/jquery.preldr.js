@@ -47,7 +47,6 @@ if ( undefined === jQuery ) { console.error( 'jQuery is required. #preldr' ); re
 			} )
 			.attr( 'src', url )
 			.each( function () {
-				console.log( [this] );
 				if ( true === this.complete ) { $( this ).trigger( 'load' ); }
 			} );
 		} );
