@@ -38,17 +38,18 @@ if ( undefined === jQuery ) { console.error( 'jQuery is required. #preldr' ); re
 
 		$.each( urls, function () {
 			var url = this;
-			$( new Image() )
-			.one( 'load error', function () {
+			$( '<img />' )
+			.one( 'load', function ( e ) {
 				loading--;
 				if ( loading === 0 ) {
 					loaded( this );
 				}
 			} )
-			.attr( 'src', url )
-			.each( function () {
-				if ( true === this.complete ) { $( this ).trigger( 'load' ); }
-			} );
+			.one( 'error', function ( e ) {
+				console.error( 'unable to load image: ' + url );
+				loaded( this );
+			} )
+			.attr( 'src', url );
 		} );
 
 		if ( urls.length === 0 ) {
